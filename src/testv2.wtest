@@ -1,0 +1,139 @@
+import Presentacion.*
+import Cancion.*
+import Grupo.*
+import Fecha.*
+import lugares.*
+import guitarras.*
+import cantantes.*
+
+test "Habilidad de Joaquin en Pimpinelas" {
+	const pimpinela = new Grupo("Pimpinela", [lucia,joaquin])
+	assert.equals(joaquin.habilidad(), 25)
+}
+
+test "Habilidad de Joaquin sin Pimpinelas" {
+	assert.equals(joaquin.habilidad(), 20)
+}
+
+test "Habilidad de Lucia en Pimpinelas" {
+	const pimpinela = new Grupo("Pimpinela", [lucia,joaquin])
+	assert.equals(lucia.habilidad(), 50)
+}
+
+test "Habilidad de Lucia sin Pimpinelas" {
+	assert.equals(lucia.habilidad(), 70)
+}
+
+test "Habilidad de Luis Alberto con la Fender" {
+	const luisAlbertoTest = luisAlberto
+	luisAlbertoTest.tocar(fender)
+	assert.equals(luisAlbertoTest.habilidad(), 80)
+}
+
+test "Habilidad de Luis Alberto con la Gibson Sana" {
+	const luisAlbertoTest = luisAlberto
+	luisAlbertoTest.tocar(gibson)
+	assert.equals(luisAlbertoTest.habilidad(), 100)
+}
+
+test "Habilidad de Luis Alberto con la Gibson Maltratada" {
+	const luisAlbertoTest = luisAlberto
+	const gibsonTest = gibson
+	gibsonTest.maltratar()
+	luisAlbertoTest.tocar(gibsonTest)
+	assert.equals(luisAlbertoTest.habilidad(), 40)
+}
+
+test "Joaquin no interpreta bien La Familia" {
+	const letraLaFamilia = "Quiero brindar por mi gente sencilla, por el amor brindo por la familia"
+	const laFamilia = new Cancion("La Familia", 264, letraLaFamilia)
+	assert.notThat(joaquin.interpretaBien(laFamilia))
+}
+
+test "Joaquin interpreta bien Cisne" {
+	const letraCisne = "Hoy el viento se abrió quedó vacío el aire una vez más y el manantial brotó y nadie está aquí y puedo ver que solo estallan las hojas al brillar"
+	const cisne = new Cancion("Cisne", 312, letraCisne)
+	assert.that(joaquin.interpretaBien(cisne))
+}
+
+test "Lucia interpreta bien La Familia" {
+	const letraLaFamilia = "Quiero brindar por mi gente sencilla, por el amor brindo por la familia"
+	const laFamilia = new Cancion("La Familia", 264, letraLaFamilia)
+	assert.that(lucia.interpretaBien(laFamilia))
+}
+
+test "Lucia no interpreta bien Cisne" {
+	const letraCisne = "Hoy el viento se abrió quedó vacío el aire una vez más y el manantial brotó y nadie está aquí y puedo ver que solo estallan las hojas al brillar"
+	const cisne = new Cancion("Cisne", 312, letraCisne)
+	assert.notThat(lucia.interpretaBien(cisne))
+}
+
+test "Luis Alberto interpreta bien La Familia" {
+	const letraLaFamilia = "Quiero brindar por mi gente sencilla, por el amor brindo por la familia"
+	const laFamilia = new Cancion("La Familia", 264, letraLaFamilia)
+	assert.that(luisAlberto.interpretaBien(laFamilia))
+}
+
+test "Luis Alberto interpreta bien Cisne" {
+	const letraCisne = "Hoy el viento se abrió quedó vacío el aire una vez más y el manantial brotó y nadie está aquí y puedo ver que solo estallan las hojas al brillar"
+	const cisne = new Cancion("Cisne", 312, letraCisne)
+	assert.that(luisAlberto.interpretaBien(cisne))
+}
+
+test "Cuanto cobra Joaquin por el Luna Park" {
+	const fecha = new Fecha(20,04,2017,"Jueves")
+	const presentacionLunaPark = new Presentacion(fecha, lunaPark, [lucia,joaquin,luisAlberto])
+	assert.equals(joaquin.cobraPorPresentacion(presentacionLunaPark), 50)
+}
+
+test "Cuanto cobra Joaquin en la Trastienda solo"{
+	const fecha = new Fecha(15,11,2017, "Miercoles")
+	const presentacionLaTrastienda = new Presentacion(fecha, laTrastienda,joaquin)
+	assert.equals(joaquin.cobraPorPresentacion(presentacionLaTrastienda), 100)
+}
+
+test "Capacidad de la Trastienda el 05-08-2017"{
+	const fecha = new Fecha(05,08,2017,"Sabado")
+	assert.equals(laTrastienda.capacidad(fecha),700)
+}
+
+test "Capacidad de la Trastienda el 08-08-2017"{
+	const fecha = new Fecha(08,08,2017,"Martes")
+	assert.equals(laTrastienda.capacidad(fecha),400)
+}
+
+test "Cuanto cobra Lucia en el Luna Park"{
+	const fecha = new Fecha(20,04,2017,"Jueves")
+	const presentacionLunaPark = new Presentacion(fecha, lunaPark, [lucia,joaquin,luisAlberto])
+	assert.equals(lucia.cobraPorPresentacion(presentacionLunaPark), 500)
+}
+
+test "Cuanto cobra Lucia en La Trastieda"{
+	const fecha = new Fecha(15,11,2017, "Miercoles")
+	const presentacionLaTrastienda = new Presentacion(fecha, laTrastienda,[lucia,joaquin,luisAlberto])
+	assert.equals(lucia.cobraPorPresentacion(presentacionLaTrastienda), 400)
+}
+
+test "Cuanto cobra Luis Alberto en el Luna Park"{
+	const fecha = new Fecha(20,04,2017,"Jueves")
+	const presentacionLunaPark = new Presentacion(fecha, lunaPark, [lucia,joaquin,luisAlberto])
+	assert.equals(luisAlberto.cobraPorPresentacion(presentacionLunaPark), 1000)
+}
+
+test "Cuanto cobra Luis Alberto en La Trastieda"{
+	const fecha = new Fecha(15,11,2017, "Miercoles")
+	const presentacionLaTrastienda = new Presentacion(fecha, laTrastienda,[lucia,joaquin,luisAlberto])
+	assert.equals(luisAlberto.cobraPorPresentacion(presentacionLaTrastienda), 1200)
+}
+
+test "Costo de la Presentacion del Luna Park"{
+	const fecha = new Fecha(20,04,2017,"Jueves")
+	const presentacionLunaPark = new Presentacion(fecha, lunaPark, [lucia,joaquin,luisAlberto])
+	assert.equals(presentacionLunaPark.costo(), 1550)
+}
+
+test "Costo de la Presentacion de La Trastienda"{
+	const fecha = new Fecha(15,11,2017, "Miercoles")
+	const presentacionLaTrastienda = new Presentacion(fecha, laTrastienda,[lucia,joaquin,luisAlberto])
+	assert.equals(presentacionLaTrastienda.costo(), 1650)
+}
