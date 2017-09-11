@@ -21,7 +21,7 @@ object lunaPark {
 	
 	var capacidad = 9290
 
-	method capacidad(_dia){
+	method capacidad(fecha){
 		return capacidad
 	}
 
